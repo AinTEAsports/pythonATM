@@ -1,6 +1,7 @@
 import sys
 
 
+# Creating class
 class BankAccount:
 	
 	def __init__(self, name):
@@ -27,7 +28,8 @@ class BankAccount:
 		return self.name
 
 
-myAccount = BankAccount("AinTea")
+# I define my account
+myAccount = BankAccount("AinTEAsports")
 
 
 menuChoice = """
@@ -41,6 +43,7 @@ menuChoice = """
 """
 
 print(f"Welcome to your Bank {myAccount.getAccountName()} !")
+
 
 continuer = True
 while continuer:

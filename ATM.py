@@ -7,16 +7,25 @@ class BankAccount:
 	def __init__(self, name):
 		self.name = name
 		self.accountValue = 100
-
+        self.operationNumber = 0
+        
+        # {"operationNumber" : operationValue}
+        self.retraits = {}
+        self.depots = {}
 	
 	def deposer(self, montant):
 		self.accountValue += montant
-	
+	    self.operationNumber += 1
+        self.depots[self.operationNumber] = montant
+
 
 	def retirer(self, montant):
 		if self.accountValue - montant >= 0:
 			self.accountValue -= montant
+            self.operationNumber += 1
+            self.retraits[self.operationNumber] = montant
 			return
+
 		print(f"You don't enough money to retire {montant}€")
 
 
@@ -26,6 +35,19 @@ class BankAccount:
 
 	def getAccountName(self):
 		return self.name
+
+
+    def getDepots(self):
+        return self.depots
+
+
+    def getRetraits(self):
+        return self.retraits
+
+
+    def getFiveLastOperations(self):
+        pass
+
 
 
 # I define my account

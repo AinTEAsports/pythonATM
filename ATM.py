@@ -7,26 +7,26 @@ class BankAccount:
 	def __init__(self, name):
 		self.name = name
 		self.accountValue = 100
-        self.operationNumber = 0
-        
-        # {"operationNumber" : operationValue}
-        self.retraits = {}
-        self.depots = {}
-	
+		self.operationNumber = 0
+
+		# {"operationNumber" : operationValue}
+		self.retraits = {}
+		self.depots = {}
+
 	def deposer(self, montant):
 		self.accountValue += montant
-	    self.operationNumber += 1
-        self.depots[self.operationNumber] = montant
+		self.operationNumber += 1
+		self.depots[str(self.operationNumber)] = montant
 
 
 	def retirer(self, montant):
 		if self.accountValue - montant >= 0:
 			self.accountValue -= montant
-            self.operationNumber += 1
-            self.retraits[self.operationNumber] = montant
+			self.operationNumber += 1
+			self.retraits[str(self.operationNumber)] = montant
 			return
 
-		print(f"You don't enough money to retire {montant}€")
+		print(f"You don't have enough money to retire {montant}€")
 
 
 	def getAccountValue(self):
@@ -37,17 +37,30 @@ class BankAccount:
 		return self.name
 
 
-    def getDepots(self):
-        return self.depots
+	def getDepots(self):
+		return self.depots
 
 
-    def getRetraits(self):
-        return self.retraits
+	def getFiveLastOperations(self):
+		fiveLastOperations = []
+  
+		if self.operationNumber == 0:
+			return "Vous n'avez pas encore effectué d'opérations"
+  
+		if self.operationNumber <= 5:
+			return list(self.retraits.values()) + list(self.depots.values())
+  
+		for i in range(self.operationNumber-4, self.operationNumber+1):
+			if str(i) in self.retraits.keys():
+				fiveLastOperations.append(self.retraits[str(i)])
+			else:
+				fiveLastOperations.append(self.depots[str(i)])
+    
+		return fiveLastOperations
 
 
-    def getFiveLastOperations(self):
-        pass
-
+	def getRetraits(self):
+		return self.retraits
 
 
 # I define my account
@@ -71,38 +84,31 @@ continuer = True
 while continuer:
 	print(menuChoice)
 	userChoice = input("Enter your choice : ")
-
-	while userChoice not in [str(i) for i in range(7)]:
-		print("\nEnter a valid option !\n")
-		userChoice = input("Enter your choice : ")
 	
 	if userChoice == "0":
-		print(f"\nGoodbye {myAccount.getAccountName()} !")
-		sys.exit()
+		break
 	elif userChoice == "1":
 		toRetire = input("Enter how much money you want to retire : ")
 		if toRetire.isdigit():
-			myAccount.retirer(toRetire)
+			myAccount.retirer(int(toRetire))
 		else:
-			print("Merci d'entrer un chiffre\n")
+			print("\nMerci d'entrer un chiffre\n")
 	elif userChoice == "2":
 		toDepose = input("Enter how much do you want to depose : ")
 		if toDepose.isdigit():
-			myAccount.deposer(toDepose)
+			myAccount.deposer(int(toDepose))
 		else:
-			print("Merci d'entrer un chiffre\n")
+			print("\nMerci d'entrer un chiffre\n")
 	elif userChoice == "3":
 		print(myAccount.getAccountValue())
 	elif userChoice == "4":
-		pass
+		print(myAccount.getFiveLastOperations())
 	elif userChoice == "5":
 		pass
 	elif userChoice == "6":
 		pass
 	else:
-		print("\n!!!ERROR !!!\n")
+		print("\nPlease enter a valid option !\n")
 
-	wantContinue = input("Do you want to continue ? [Y/n] : ").lower()
- 
-	if wantContinue == 'y':
-		continuer = False
+
+print(f"\nGoodbye {myAccount.getAccountName()} !")

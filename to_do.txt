@@ -1,2 +1,4 @@
+Finir methode permettant d'avoir les 5 denrieres operations (renvoi sous forme de dicitonnaire)
+
 Finir programme (options non finies)
 Finir commentaires

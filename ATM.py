@@ -1,4 +1,21 @@
 import sys
+import termcolor
+
+
+asciiText = """
+  _______             __    _______             
+ |   _   .---.-.-----|  |--|       .-----.---.-.
+ |.  1   |  _  |     |    <|.|   | |  -__|  _  |
+ |.  _   |___._|__|__|__|__`-|.  |-|_____|___._|
+ |:  1    \                  |:  |              
+ |::.. .  /                  |::.|              
+ `-------'                   `---'              
+"""
+
+asciiTextColored = termcolor.colored(asciiText, "red")
+
+
+print(asciiTextColored)
 
 
 # Creating class
